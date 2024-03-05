@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
 
     public float moveSpeed;
+    public float jumpForce;
 
     private Vector2 _moveDirection;
 
@@ -25,5 +26,21 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(_moveDirection.x*moveSpeed, _moveDirection.y*moveSpeed);
+    }
+
+    private void OnEnable()
+    {
+        jump.action.started += Jump;
+    }
+
+    private void OnDisable()
+    {
+        jump.action.started -= Jump;
+    }
+
+    private void Jump(InputAction.CallbackContext context)
+    {
+        Debug.Log("Jump");
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 }

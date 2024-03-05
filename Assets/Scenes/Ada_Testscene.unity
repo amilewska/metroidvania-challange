@@ -414,6 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 678087188}
   moveSpeed: 5
+  jumpForce: 2
   move: {fileID: 5716875565776100376, guid: c74005aacaab7e145a5c8ba6ea437487, type: 3}
   jump: {fileID: 2898052854489861920, guid: c74005aacaab7e145a5c8ba6ea437487, type: 3}
 --- !u!114 &678087190

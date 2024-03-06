@@ -12,18 +12,21 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _moveDirection;
 
-    public InputActionReference move;  
-    
+    public InputActionReference move;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     // Update is called once per frame
     void Update()
     {
         _moveDirection = move.action.ReadValue<Vector2>();
     }
-
+   
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(_moveDirection.x*moveSpeed, 0);
+        rb.velocity = new Vector2(_moveDirection.x*moveSpeed, rb.velocity.y);
     }
 
 }

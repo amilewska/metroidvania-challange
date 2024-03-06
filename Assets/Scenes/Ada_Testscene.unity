@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 637726507}
   - component: {fileID: 637726510}
   - component: {fileID: 637726509}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,9 @@ GameObject:
   - component: {fileID: 678087190}
   - component: {fileID: 678087189}
   - component: {fileID: 678087188}
+  - component: {fileID: 678087193}
   - component: {fileID: 678087192}
+  - component: {fileID: 678087194}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -385,7 +387,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -414,9 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 678087188}
   moveSpeed: 5
-  jumpForce: 2
   move: {fileID: 5716875565776100376, guid: c74005aacaab7e145a5c8ba6ea437487, type: 3}
-  jump: {fileID: 2898052854489861920, guid: c74005aacaab7e145a5c8ba6ea437487, type: 3}
 --- !u!114 &678087190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: c74005aacaab7e145a5c8ba6ea437487, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -441,7 +441,15 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c84cbbe6-0508-4df4-bb68-7eb6c423c804
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e883d28-1072-4228-b056-8aab00b7302d
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -498,6 +506,39 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &678087193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678087187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586634fcf41e3e44d8938e2976e0adcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability: {fileID: 11400000, guid: 8fc6da955bc64a74a953712ed40ffb1f, type: 2}
+  key: 304
+--- !u!114 &678087194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678087187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa47194f79c0cd34f8ba2982a671203c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 678087188}
+  jumpForce: 5
+  jump: {fileID: 2898052854489861920, guid: c74005aacaab7e145a5c8ba6ea437487, type: 3}
+  groundCheck: {fileID: 637726508}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &749598384
 GameObject:
   m_ObjectHideFlags: 0

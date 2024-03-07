@@ -15,11 +15,17 @@ public class PlayerJump : MonoBehaviour
     public LayerMask groundLayer;
 
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        PlayerInputActions playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Jump.performed += Jump;
     }
-   /* private void OnEnable()
+
+    private void OnEnable()
     {
         jump.action.started += Jump;
     }
@@ -27,43 +33,31 @@ public class PlayerJump : MonoBehaviour
     private void OnDisable()
     {
         jump.action.started -= Jump;
-    }*/
+    }
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 1f, groundLayer);
     }
 
-    private void OnJump()
+   
+    public void Jump(InputAction.CallbackContext context)
     {
         
-           Debug.Log("Jump");
-           rb.velocity += Vector2.up * jumpForce;
-        //rb.AddForce(Vector2.up * jumpForce);
-
-    }
-    /*public void Jump(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            Debug.Log("Jump");
-            rb.velocity += Vector2.up * jumpForce;
-            //rb.AddForce(Vector2.up * jumpForce);
-        }
-
-        *//* if (IsGrounded())
+        if (context.performed && IsGrounded())
          {
              Debug.Log("Can jump");
              rb.velocity = new Vector2(rb.velocity.x, jumpForce);
              //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
          }
-         if (rb.velocity.y>0f)
+
+         /*if (rb.velocity.y > 0f)
          {
-             Debug.Log("Can jump");
+             Debug.Log("Cannot jump - in the air");
              rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-         }*//*
+         }*/
 
 
-    }*/
+    }
 }
 

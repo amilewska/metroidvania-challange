@@ -28,8 +28,10 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         PlayerMovement movement = GetComponent<PlayerMovement>();
         movement.moveSpeed *= dashVelocity;
+        transform.localScale /= 2;
         yield return new WaitForSeconds(activeTime);
         movement.moveSpeed /= dashVelocity;
+        transform.localScale *= 2;
         yield return new WaitForSeconds(cooldownTime);
         canDash = true;
     }
@@ -39,8 +41,6 @@ public class PlayerDash : MonoBehaviour
         {
             Debug.Log("you are dashing");
             StartCoroutine(ActivateDash());
-            //rb.velocity = new Vector2(rb.velocity.x* dashVelocity, rb.velocity.y);
-            //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         }
 

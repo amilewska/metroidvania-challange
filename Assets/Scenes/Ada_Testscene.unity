@@ -1288,9 +1288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36784f794a2c7b94983cb57b40e191a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityMultiplier: 8
-  maxspeed: 10
-  directions: []
 --- !u!1 &690952464
 GameObject:
   m_ObjectHideFlags: 0

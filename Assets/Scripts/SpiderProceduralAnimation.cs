@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpiderProceduralAnimation : MonoBehaviour
 {
+    //code from leo chaumartin   https://www.youtube.com/watch?v=hrIimDYV0IA&tfrom 
+    //https://github.com/lchaumartin/ProceduralAnimation2D
     public Transform[] legTargets;
     public float stepSize = 0.15f;
     public int smoothness = 8;

@@ -9,8 +9,8 @@ using UnityEngine;
 public class PlayerStickWalls : MonoBehaviour
 {
     Vector2 forceDirection = Vector2.down;
-    float range=200;
-    float gravityMultiplier;
+    float range=10;
+    float gravityMultiplier = 9.81f;
     Rigidbody2D rb;
 
     GravityDirection gravityDirection;
@@ -62,14 +62,18 @@ public class PlayerStickWalls : MonoBehaviour
     private void Update()
     {
         
-        if (Physics2D.Raycast(transform.position, Vector2.left))
+       /* if (Physics2D.Raycast(transform.position, Vector2.left))
         {
             rb.AddForce(new Vector2(-9.8f, 0));
-            gameObject.transform.rotation = Quaternion.Lerp(start.rotation, end.rotation, timeCount * speed);
+            //gameObject.transform.rotation = Quaternion.Lerp(start.rotation, end.rotation, timeCount * speed);
+            //transform.Rotate(0, 0, 90);
+            //transform.rotation = Quaternion.Euler(new Vector3(0, 0, transform.rotation.eulerAngles.z + 90));
             timeCount = timeCount + Time.deltaTime;
-        }
+        }*/
 
-        /*Vector2[] directions = new Vector2[4];
+        
+
+        Vector2[] directions = new Vector2[4];
         directions[0] = Vector2.down;
         directions[1] = Vector2.right;
         directions[2] = Vector2.up;
@@ -77,13 +81,13 @@ public class PlayerStickWalls : MonoBehaviour
 
         foreach (Vector2 v in directions)
         {
-           //if (Physics2D.Raycast(transform.position, v, range))
-                //forceDirection = v;
-                //gravityDirection = GravityDirection.Left;
-            //Debug.DrawRay(transform.position, v, color:UnityEngine.Color.red,range);
+           if (Physics2D.Raycast(transform.position, v, range))
+                
+                forceDirection = v;
+                Debug.DrawRay(transform.position, v, color:UnityEngine.Color.red,range);
         }
         
-        //rb.AddForce(forceDirection * gravityMultiplier);*/
+        rb.AddForce(forceDirection * gravityMultiplier);
     }
     
 }

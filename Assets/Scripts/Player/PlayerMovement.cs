@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
 
     public float moveSpeed;
+    public float rotationSpeed; 
 
     private Vector2 _moveDirection;
 
@@ -26,7 +27,16 @@ public class PlayerMovement : MonoBehaviour
    
     private void FixedUpdate()
     {
+        
+
         rb.velocity = new Vector2(_moveDirection.x*moveSpeed, rb.velocity.y);
+        //rb.velocity = new Vector2(_moveDirection.x*moveSpeed, _moveDirection.y * moveSpeed);
+
+        if(_moveDirection!=Vector2.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, _moveDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed*Time.deltaTime);
+        }
     }
 
 }

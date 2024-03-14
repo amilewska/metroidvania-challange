@@ -5,28 +5,26 @@ using UnityEngine.UI;
 
 public class AbilityProgressBar : MonoBehaviour
 {
-    public float maximum;
-    public float current;
-    public Image mask;
-    // Start is called before the first frame update
-    void Start()
+    public Slider slider;
+    public Gradient gradient;
+    public int maxProgress = 4;
+
+    public Image fill;
+
+    private void Start()
     {
-        
+        slider.value = 0;
+
+        fill.color = gradient.Evaluate(1f);
+    }
+     public bool IsMax()
+    {
+        return slider.value >= slider.maxValue;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddProgress(int progress)
     {
-        GetCurrentFill();
-    }
-
-    void AddProgress()
-    {
-
-    }
-    void GetCurrentFill()
-    {
-        float fillAmount = (current)/(maximum);
-        mask.fillAmount = fillAmount;
+        slider.value += progress;
+        fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 }

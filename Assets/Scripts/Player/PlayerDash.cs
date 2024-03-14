@@ -37,7 +37,7 @@ public class PlayerDash : MonoBehaviour
     }
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed &&canDash)
+        if (context.performed && canDash)
         {
             Debug.Log("you are dashing");
             StartCoroutine(ActivateDash());

@@ -5,15 +5,16 @@ using UnityEngine.InputSystem;
 
 public class ChestInteraction : MonoBehaviour
 {
-    Animation anim;
     Animator animator;
+    public AbilityProgressBar abilityProgressBar;
     public InputActionReference interact;
+    bool isClosed;
+
     void Start()
     {
-        anim = GetComponent<Animation>();
         animator = GetComponent<Animator>();
+        
     }
-
 
     private void Awake()
     {
@@ -30,11 +31,23 @@ public class ChestInteraction : MonoBehaviour
     public void Interact(InputAction.CallbackContext context)
     {
 
-        if (context.performed && IsNear())
+        if (context.performed && IsNear() && !abilityProgressBar.IsMax() && !isClosed)
         {
             animator.SetBool("IsNear", true);
-            //anim.Play();
+            abilityProgressBar.AddProgress(1);
+            isClosed = true;
         }
+
+        if (context.performed && IsNear() && abilityProgressBar.IsMax())
+        {
+            Debug.Log("You are too emotional to interact with");
+        }
+
+        if (context.performed && IsNear() && isClosed)
+        {
+            Debug.Log("You cannot interact with it anymore");
+        }
+        
 
 
 

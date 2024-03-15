@@ -14,6 +14,8 @@ public class PlayerJump : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    public float jumpTime = 2;
+
 
 
     private void Awake()
@@ -25,7 +27,7 @@ public class PlayerJump : MonoBehaviour
         playerInputActions.Player.Jump.performed += Jump;
     }
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         jump.action.started += Jump;
     }
@@ -33,7 +35,7 @@ public class PlayerJump : MonoBehaviour
     private void OnDisable()
     {
         jump.action.started -= Jump;
-    }
+    }*/
 
     private bool IsGrounded()
     {
@@ -45,19 +47,13 @@ public class PlayerJump : MonoBehaviour
     {
         
         if (context.performed && IsGrounded())
-         {
+        {
              Debug.Log("Can jump");
              rb.velocity = new Vector2(rb.velocity.x, jumpForce);
              //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-         }
+        }
 
-         /*if (rb.velocity.y > 0f)
-         {
-             Debug.Log("Cannot jump - in the air");
-             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-         }*/
-
-
+        
     }
 }
 

@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     public InputActionReference move;
 
+    bool isClimbing;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,7 +29,31 @@ public class PlayerMovement : MonoBehaviour
    
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(_moveDirection.x*moveSpeed, rb.velocity.y);
+        if (isClimbing)
+        {
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
+        }
+        else
+        {
+            rb.gravityScale = 3;
+            rb.velocity = new Vector2(_moveDirection.x * moveSpeed, rb.velocity.y);
+        }
+        
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Web"))
+        {
+            isClimbing = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Web"))
+        {
+            isClimbing = false ;
+        }
+    }
 }

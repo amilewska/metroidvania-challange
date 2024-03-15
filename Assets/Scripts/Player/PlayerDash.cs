@@ -30,11 +30,14 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         PlayerMovement movement = GetComponent<PlayerMovement>();
         movement.moveSpeed *= dashVelocity;
+        float gravityScale = movement.rb.gravityScale;
+        rb.gravityScale = 0;
         transform.localScale /= 2;
         yield return new WaitForSeconds(activeTime);
         movement.moveSpeed /= dashVelocity;
         transform.localScale *= 2;
         yield return new WaitForSeconds(cooldownTime);
+        rb.gravityScale = gravityScale;
         canDash = true;
     }
     public void Dash(InputAction.CallbackContext context)

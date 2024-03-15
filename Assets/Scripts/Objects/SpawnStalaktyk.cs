@@ -7,15 +7,28 @@ public class SpawnStalaktyk : MonoBehaviour
 {
     public GameObject stalaktytPrefab;
     public Vector3 stalaktytPosition;
-
-    private void Start()
+    public float timeSpawn = 3;
+    
+    private void Update()
     {
-        
+        timeSpawn-=Time.deltaTime;
+        if (timeSpawn <= 0)
+        {
+            GenerateStalaktyt();
+            timeSpawn = 3;
+        }
+    }
+
+    void GenerateStalaktyt()
+    {
+        Instantiate(stalaktytPrefab, GenerateSpawnPos(), stalaktytPrefab.transform.rotation);
     }
     IEnumerator GenerateStalaktykt()
     {
-        GameObject stalaktyt = Instantiate(stalaktytPrefab, GenerateSpawnPos(), Quaternion.identity);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        GameObject stalaktyt = Instantiate(stalaktytPrefab, GenerateSpawnPos(), stalaktytPrefab.transform.rotation);
+        
+            
     }
 
     Vector3 GenerateSpawnPos()

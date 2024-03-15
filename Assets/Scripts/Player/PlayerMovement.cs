@@ -27,16 +27,7 @@ public class PlayerMovement : MonoBehaviour
    
     private void FixedUpdate()
     {
-        
-
         rb.velocity = new Vector2(_moveDirection.x*moveSpeed, rb.velocity.y);
-        //rb.velocity = new Vector2(_moveDirection.x*moveSpeed, _moveDirection.y * moveSpeed);
-
-        if(_moveDirection!=Vector2.zero)
-        {
-            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, _moveDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed*Time.deltaTime);
-        }
     }
 
 }

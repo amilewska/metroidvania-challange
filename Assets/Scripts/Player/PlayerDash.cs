@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerDash : MonoBehaviour
 {
+    public AbilityProgressBar abilityProgressBar;
+
     public float dashVelocity = 5;
     public Rigidbody2D rb;
 
@@ -37,10 +39,11 @@ public class PlayerDash : MonoBehaviour
     }
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed && canDash)
+        if (context.performed && canDash && abilityProgressBar.slider.value>0)
         {
             Debug.Log("you are dashing");
             StartCoroutine(ActivateDash());
+            abilityProgressBar.AddProgress(-1);
 
         }
 

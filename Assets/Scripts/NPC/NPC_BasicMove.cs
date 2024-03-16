@@ -24,7 +24,7 @@ public class NPC_BasicMove : MonoBehaviour
 
     void MoveObject()
     {
-        if (transform.position.x == nextPos.position.x)
+        if (Vector2.Distance(transform.position, nextPos.position) <= 0.5f )
         {
             nextPosIndex++;
             if (nextPosIndex >= positions.Length)
@@ -35,7 +35,7 @@ public class NPC_BasicMove : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, nextPos.position, speed*Time.fixedDeltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, nextPos.position, speed*Time.fixedDeltaTime);
         }
     }
 

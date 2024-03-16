@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SpawnStalaktyk : MonoBehaviour
 {
-    public GameObject stalaktytPrefab;
-    public Vector3 stalaktytPosition;
-    public float timeSpawn = 3;
+    [SerializeField] GameObject stalaktytPrefab;
+    [SerializeField] Vector3 stalaktytPosition;
+    [SerializeField] float timeSpawn = 1;
     
     private void Update()
     {
@@ -15,7 +15,7 @@ public class SpawnStalaktyk : MonoBehaviour
         if (timeSpawn <= 0)
         {
             GenerateStalaktyt();
-            timeSpawn = 3;
+            timeSpawn = 1;
         }
     }
 
@@ -23,28 +23,16 @@ public class SpawnStalaktyk : MonoBehaviour
     {
         Instantiate(stalaktytPrefab, GenerateSpawnPos(), stalaktytPrefab.transform.rotation);
     }
-    IEnumerator GenerateStalaktykt()
-    {
-        yield return new WaitForSeconds(1);
-        GameObject stalaktyt = Instantiate(stalaktytPrefab, GenerateSpawnPos(), stalaktytPrefab.transform.rotation);
-        
-            
-    }
-
+     
     Vector3 GenerateSpawnPos()
     {
-        float spawnPosX = Random.Range(180f, 260f);
-        float spawnPosY = 60;
+        float spawnPosX = Random.Range(transform.position.x-50, transform.position.x+50);
+        float spawnPosY = transform.position.y;
         float spawnPosZ = 0;
         Vector3 spawnPos = new Vector3(spawnPosX, spawnPosY, spawnPosZ);
 
         return spawnPos;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-
-    }
-
+   
 
 }

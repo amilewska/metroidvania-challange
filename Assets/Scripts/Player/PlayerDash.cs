@@ -30,9 +30,11 @@ public class PlayerDash : MonoBehaviour
     {
         canDash = false;
         PlayerMovement movement = GetComponent<PlayerMovement>();
-        movement.moveSpeed *= dashVelocity;
+
         float gravityScale = movement.rb.gravityScale;
         rb.gravityScale = 0;
+        
+        movement.moveSpeed *= dashVelocity;
         transform.localScale /= 2;
         yield return new WaitForSeconds(activeTime);
         movement.moveSpeed /= dashVelocity;

@@ -6,14 +6,16 @@ using UnityEngine.InputSystem;
 public class ChestInteraction : MonoBehaviour
 {
     Animator animator;
-    public AbilityProgressBar abilityProgressBar;
+    AbilityProgressBar abilityProgressBar;
     public InputActionReference interact;
     bool isClosed;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+        abilityProgressBar = GameObject.Find("AbilityBar").GetComponent<AbilityProgressBar>();
+
+
     }
 
     private void Awake()

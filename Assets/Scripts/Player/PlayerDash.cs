@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerDash : MonoBehaviour
@@ -31,25 +32,33 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         PlayerMovement movement = GetComponent<PlayerMovement>();
 
-        float gravityScale = movement.rb.gravityScale;
-        rb.gravityScale = 0;
         
+        float originalGravity = movement.rb.gravityScale;
+        rb.gravityScale = 0;
+
         movement.moveSpeed *= dashVelocity;
+        rb.velocity = new Vector2(rb.velocity.x, 0);
         transform.localScale /= 2;
+
         yield return new WaitForSeconds(activeTime);
-        movement.moveSpeed /= dashVelocity;
+
+        rb.gravityScale = originalGravity;
         transform.localScale *= 2;
+        movement.moveSpeed /= dashVelocity;
         yield return new WaitForSeconds(cooldownTime);
-        rb.gravityScale = gravityScale;
         canDash = true;
     }
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed && canDash && abilityProgressBar.slider.value>0)
+        if (context.performed && canDash /*&& abilityProgressBar.slider.value>0*/)
         {
             Debug.Log("you are dashing");
             StartCoroutine(ActivateDash());
+
+            
+
             abilityProgressBar.AddProgress(-1);
+
 
         }
 

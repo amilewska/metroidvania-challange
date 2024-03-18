@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerDash : MonoBehaviour
 {
-    public AbilityProgressBar abilityProgressBar;
+    private AbilityProgressBar abilityProgressBar;
 
     public float dashVelocity = 5;
     public Rigidbody2D rb;
@@ -19,6 +19,7 @@ public class PlayerDash : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        abilityProgressBar = GameObject.Find("AbilityBar").GetComponent<AbilityProgressBar>();
 
         PlayerInputActions playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();

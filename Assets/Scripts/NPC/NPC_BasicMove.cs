@@ -5,44 +5,41 @@ using UnityEngine.AI;
 
 public class NPC_BasicMove : MonoBehaviour
 {
-    NavMeshAgent agent;
-    public Transform[] waypoints;
-    int wapointIndex;
-    Vector2 target;
-    float speed;
+    public Transform[] positions;
+    Transform nextPos;
+    int nextPosIndex;
+    public float speed = 4;
     Rigidbody2D rb;
 
     private void Start()
     {
         rb =  GetComponent<Rigidbody2D>();
-        agent = GetComponent<NavMeshAgent>();
-        UpdateDestination();
+        nextPos = positions[0];
     }
 
     public void FixedUpdate()
     {
-        if (Vector2.Distance(transform.position, target) < 0)
+        MoveObject();
+    }
+
+    void MoveObject()
+    {
+        if (Vector2.Distance(transform.position, nextPos.position) <= 0.5f )
         {
-            IterateWaypointIndex();
-            UpdateDestination();
+            nextPosIndex++;
+            if (nextPosIndex >= positions.Length)
+            {
+                nextPosIndex = 0;
+            }
+            nextPos = positions[nextPosIndex];
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, nextPos.position, speed*Time.fixedDeltaTime);
         }
     }
 
-    void UpdateDestination()
-    {
-        target = waypoints[wapointIndex].position;
-        agent.destination = target;
-        rb.position = Vector2.MoveTowards(transform.position, waypoints[wapointIndex].position, speed * Time.fixedDeltaTime);
-    }
 
-    void IterateWaypointIndex()
-    {
-        wapointIndex++;
-        if(wapointIndex==waypoints.Length)
-        {
-            wapointIndex = 0;
-        }
-    }
 
 
 }

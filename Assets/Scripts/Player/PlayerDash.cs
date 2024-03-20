@@ -55,8 +55,6 @@ public class PlayerDash : MonoBehaviour
             Debug.Log("you are dashing");
             StartCoroutine(ActivateDash());
 
-            
-
             abilityProgressBar.AddProgress(-1);
 
 

@@ -28,7 +28,7 @@ public class SpawnStalaktyk : MonoBehaviour
     {
         float spawnPosX = Random.Range(transform.position.x-50, transform.position.x+50);
         float spawnPosY = transform.position.y;
-        float spawnPosZ = 0;
+        float spawnPosZ = transform.position.z;
         Vector3 spawnPos = new Vector3(spawnPosX, spawnPosY, spawnPosZ);
 
         return spawnPos;

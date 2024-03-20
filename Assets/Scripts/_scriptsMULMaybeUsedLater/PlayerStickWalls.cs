@@ -25,8 +25,6 @@ public class PlayerStickWalls : MonoBehaviour
 
     public  Transform start;
     public Transform end;
-    float timeCount=0.0f;
-    float speed=0.01f;
 
     private void Start()
     {

@@ -36,8 +36,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            //rb.gravityScale = 3;
+            rb.gravityScale = 3;
             rb.velocity = new Vector2(_moveDirection.x * moveSpeed, rb.velocity.y);
+            
         }
         
     }

@@ -20,7 +20,7 @@ public class PlatformVertical : MonoBehaviour
     IEnumerator ActivateThroughPlatform()
     {
         gameObject.GetComponent<CircleCollider2D>().isTrigger = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
         
     }

@@ -982,8 +982,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8578397213115028471}
   moveSpeed: 40
+  moveSpeedWeb: 10
   rotationSpeed: 0
   move: {fileID: 5716875565776100376, guid: c74005aacaab7e145a5c8ba6ea437487, type: 3}
+  Ground:
+    serializedVersion: 2
+    m_Bits: 8
+  WallLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  groundCheck: {fileID: 0}
 --- !u!114 &4799224091853411301
 MonoBehaviour:
   m_ObjectHideFlags: 0

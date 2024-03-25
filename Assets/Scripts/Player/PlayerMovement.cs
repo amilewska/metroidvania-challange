@@ -6,24 +6,28 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("References")]
+    private Rigidbody2D rb;
+    [SerializeField] private InputActionReference move;
+    [SerializeField] private GameObject sprites;
 
-    public Rigidbody2D rb;
+    [Header("Movement values")]
+    [SerializeField] public float moveSpeed; //cooperate with playerdash
+    [SerializeField] private float moveSpeedWeb;
+    [SerializeField] public Vector2 _moveDirection; //cooperate with playerdash
+    [SerializeField] private Transform groundCheck;
 
-    public float moveSpeed;
-    public float moveSpeedWeb;
-    public float rotationSpeed;
-    bool isFacingRight;
-    bool isWallWalking;
+    [Header("Booleans")]
+    [SerializeField] private bool isClimbing;
+    [SerializeField] public bool isDashing; //cooperate with playerdash
+    [SerializeField] private bool isFacingRight;
+    [SerializeField] private bool isWallWalking;
 
-    private Vector2 _moveDirection;
 
-    public InputActionReference move;
-    public LayerMask Ground;
-    public LayerMask WallLayer;
+    [Header("Layer masks")]
+    [SerializeField] private LayerMask Ground;
+    [SerializeField] private LayerMask WallLayer;
 
-    public Transform groundCheck;
-
-    bool isClimbing;
 
     private void Awake()
     {
@@ -32,13 +36,26 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDashing)
+        {
+            return;
+        }
         _moveDirection = move.action.ReadValue<Vector2>();
         SurfaceAligment();
         WallWalk();
+        Flip();
     }
    
     private void FixedUpdate()
     {
+
+        if (isDashing)
+        {
+            return;
+        }
+
+        
+        
         if (isClimbing)
         {
             
@@ -46,12 +63,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            //
-            //rb.velocity = new Vector2(_moveDirection.x * moveSpeed, rb.velocity.y);
+            
+            rb.velocity = new Vector2(_moveDirection.x * moveSpeed , rb.velocity.y);
             
             //Vector2 moveDirection = new Vector2(_moveDirection.x, _moveDirection.y);
             //rb.AddForce(moveDirection*moveSpeed);
-            rb.AddForce(new Vector2(_moveDirection.x * moveSpeed, rb.velocity.y));
+            //rb.AddForce(new Vector2(_moveDirection.x * moveSpeed, rb.velocity.y));
             
         }
         
@@ -99,19 +116,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        if (isFacingRight && _moveDirection.x < 0f || !isFacingRight && _moveDirection.x > 0f)
+        if (isFacingRight && _moveDirection.x > 0f || !isFacingRight && _moveDirection.x < 0f)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
+            Vector3 localScale = sprites.transform.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale;
+            sprites.transform.localScale = localScale;
         }
     }
 
-    private bool IsWalled()
-    {
-        return Physics2D.OverlapCircle(transform.position, 2f, WallLayer);
-    }
+    
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(transform.position, 2f, Ground);
@@ -119,15 +133,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallWalk()
     {
-        if (IsWalled())
+        if (Physics2D.Raycast(transform.position,Vector2.left,2,WallLayer))
         {
             //it is for left wall
             Debug.Log("wall walk");
             isWallWalking = true;
             rb.gravityScale = 0;
-            rb.velocity = new Vector2(0, -_moveDirection.x * 10);
+            rb.velocity = new Vector2(-9.8f, -_moveDirection.x * moveSpeed);
 
         }
+
+        else if (Physics2D.Raycast(transform.position, Vector2.right,2,WallLayer))
+        {
+            //it is for right wall
+            Debug.Log("wall walk");
+            isWallWalking = true;
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(9.8f, _moveDirection.x * moveSpeed);
+
+        }
+
         else
         {
             isWallWalking = false; 
